@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../features/brew_category/presentation/brew_category_home_screen.dart';
 import '../features/coffee_detail/presentation/coffee_detail_screen.dart';
 import '../features/coffee_list/presentation/coffee_list_screen.dart';
+import '../features/favorites/presentation/favorites_screen.dart';
 import '../features/my_recipes/presentation/my_recipes_screen.dart';
 import '../features/my_recipes/presentation/recipe_editor_screen.dart';
 import '../features/preparation/presentation/preparation_guide_screen.dart';
@@ -43,6 +44,11 @@ final appRouter = GoRouter(
           methodId: methodId,
         );
       },
+    ),
+    GoRoute(
+      path: '/favorites',
+      name: 'favorites',
+      builder: (context, state) => const FavoritesScreen(),
     ),
     GoRoute(
       path: '/my-recipes',

@@ -131,6 +131,43 @@ class CoffeeRepository {
     return row?.localPath;
   }
 
+  Future<bool> isFavorite(int coffeeId) async {
+    final row = await (_db.select(_db.favorites)
+          ..where((t) => t.coffeeId.equals(coffeeId)))
+        .getSingleOrNull();
+    return row != null;
+  }
+
+  Future<void> setFavorite(int coffeeId, bool favorite) async {
+    if (favorite) {
+      await _db.into(_db.favorites).insertOnConflictUpdate(
+            FavoritesCompanion.insert(
+              coffeeId: Value(coffeeId),
+              createdAt: DateTime.now(),
+            ),
+          );
+    } else {
+      await (_db.delete(_db.favorites)..where((t) => t.coffeeId.equals(coffeeId)))
+          .go();
+    }
+  }
+
+  Future<List<models.CoffeeSummary>> favoriteCoffees() async {
+    final query = _db.select(_db.coffees).join([
+      innerJoin(
+        _db.favorites,
+        _db.favorites.coffeeId.equalsExp(_db.coffees.id),
+      ),
+    ]);
+    query.orderBy([OrderingTerm.desc(_db.favorites.createdAt)]);
+    final rows = await query.get();
+    final coffees = <models.CoffeeSummary>[];
+    for (final row in rows) {
+      coffees.add(await _toSummary(row.readTable(_db.coffees)));
+    }
+    return coffees;
+  }
+
   Future<models.CoffeeSummary> _toSummary(Coffee row) async {
     final notes = await (_db.select(_db.flavorNotes)
           ..where((t) => t.coffeeId.equals(row.id)))
@@ -142,6 +179,7 @@ class CoffeeRepository {
           ..where((t) => t.coffeeId.equals(row.id)))
         .get();
     final override = await _heroOverride(row.id);
+    final favorite = await isFavorite(row.id);
 
     return models.CoffeeSummary(
       id: row.id,
@@ -152,6 +190,8 @@ class CoffeeRepository {
       flavorNotes: notes.map((n) => n.note).toList(),
       categorySlugs: categories.map((c) => c.categorySlug).toList(),
       methodIds: methods.map((m) => m.id).toList(),
+      isFavorite: favorite,
+      description: row.description,
     );
   }
 }
