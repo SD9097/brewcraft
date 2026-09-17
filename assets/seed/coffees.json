@@ -1,4 +1,392 @@
 {
   "version": 1,
-  "coffees": []
+  "coffees": [
+    {
+      "id": 1,
+      "name": "Ethiopian Yirgacheffe",
+      "region": "Gedeo Zone, Ethiopia",
+      "roastLevel": "Light",
+      "description": "Washed heirloom varieties prized for floral aromatics and tea-like clarity.",
+      "heroImagePath": "assets/images/coffees/ethiopian_yirgacheffe.jpg",
+      "categorySlugs": ["filter", "immersion"],
+      "flavorNotes": ["Jasmine", "Bergamot", "Peach"],
+      "methods": [
+        {
+          "id": 101,
+          "name": "V60 Pour Over",
+          "categorySlug": "filter",
+          "summary": "Bright, floral cup with clean separation of notes.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "15 g"},
+            {"label": "Water", "amount": "250 ml at 94°C"},
+            {"label": "Grind", "amount": "Medium-fine"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Rinse filter", "body": "Place filter in dripper, rinse with hot water, discard rinse water.", "imagePath": "assets/images/steps/brew_pour_over.jpg"},
+            {"order": 2, "title": "Bloom", "body": "Add grounds, pour 40 g water, swirl gently, wait 30 seconds.", "imagePath": null},
+            {"order": 3, "title": "Main pour", "body": "Pour in slow circles to 250 g total over 2 minutes.", "imagePath": null},
+            {"order": 4, "title": "Drawdown", "body": "Let drain fully; target brew time 2:30–3:00.", "imagePath": null}
+          ]
+        },
+        {
+          "id": 102,
+          "name": "French Press",
+          "categorySlug": "immersion",
+          "summary": "Fuller body while keeping fruit notes.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "20 g"},
+            {"label": "Water", "amount": "300 ml at 93°C"},
+            {"label": "Grind", "amount": "Coarse"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Add coffee", "body": "Place coarse grounds in preheated press.", "imagePath": "assets/images/steps/brew_french_press.jpg"},
+            {"order": 2, "title": "Pour and steep", "body": "Pour all water, stir once, place lid, steep 4 minutes.", "imagePath": null},
+            {"order": 3, "title": "Plunge", "body": "Press slowly and serve immediately.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Colombian Huila Pitalito",
+      "region": "Huila, Colombia",
+      "roastLevel": "Medium",
+      "description": "Balanced sweetness and acidity from high-altitude smallholder lots.",
+      "heroImagePath": "assets/images/coffees/colombian_huila.jpg",
+      "categorySlugs": ["filter", "immersion", "espresso"],
+      "flavorNotes": ["Cacao", "Toffee", "Apple"],
+      "methods": [
+        {
+          "id": 201,
+          "name": "Kalita Wave",
+          "categorySlug": "filter",
+          "summary": "Even extraction highlights caramel sweetness.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "16 g"},
+            {"label": "Water", "amount": "260 ml at 93°C"},
+            {"label": "Grind", "amount": "Medium"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Prepare", "body": "Rinse filter, add grounds, level bed.", "imagePath": "assets/images/steps/brew_pour_over.jpg"},
+            {"order": 2, "title": "Bloom", "body": "Pour 40 g, wait 35 seconds.", "imagePath": null},
+            {"order": 3, "title": "Pulse pours", "body": "Three pours to 260 g, finish by 2:45.", "imagePath": null}
+          ]
+        },
+        {
+          "id": 202,
+          "name": "Espresso",
+          "categorySlug": "espresso",
+          "summary": "Chocolate-forward shot with mild apple finish.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "18 g in"},
+            {"label": "Yield", "amount": "36 g out"},
+            {"label": "Time", "amount": "28–32 seconds"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Dose and tamp", "body": "Distribute evenly, tamp level with 15 kg pressure.", "imagePath": "assets/images/steps/brew_espresso.jpg"},
+            {"order": 2, "title": "Extract", "body": "Start shot immediately; aim for honey-like stream.", "imagePath": null},
+            {"order": 3, "title": "Taste", "body": "Adjust grind finer if sour, coarser if bitter.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Indian Monsooned Malabar",
+      "region": "Karnataka, India",
+      "roastLevel": "Medium",
+      "description": "Monsoon-processed beans with low acidity and heavy body.",
+      "heroImagePath": "assets/images/coffees/indian_malabar.jpg",
+      "categorySlugs": ["regional", "immersion", "espresso"],
+      "flavorNotes": ["Earthy", "Spice", "Low acidity"],
+      "methods": [
+        {
+          "id": 301,
+          "name": "South Indian Filter",
+          "categorySlug": "regional",
+          "summary": "Traditional decoction for strong, syrupy coffee.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "20 g (fine)"},
+            {"label": "Water", "amount": "120 ml boiling"},
+            {"label": "Chicory", "amount": "Optional 10%"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Load upper chamber", "body": "Add fine grounds, press gently with stem.", "imagePath": null},
+            {"order": 2, "title": "Brew decoction", "body": "Pour boiling water, cover, drip 15–20 minutes.", "imagePath": null},
+            {"order": 3, "title": "Serve", "body": "Mix decoction with hot milk; add jaggery if desired.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Sumatra Mandheling",
+      "region": "North Sumatra, Indonesia",
+      "roastLevel": "Dark",
+      "description": "Wet-hulled profile with herbal depth and syrupy mouthfeel.",
+      "heroImagePath": "assets/images/coffees/sumatra_mandheling.jpg",
+      "categorySlugs": ["immersion", "espresso", "moka"],
+      "flavorNotes": ["Cocoa", "Licorice", "Herbal"],
+      "methods": [
+        {
+          "id": 401,
+          "name": "French Press",
+          "categorySlug": "immersion",
+          "summary": "Emphasizes cocoa and heavy body.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "22 g"},
+            {"label": "Water", "amount": "350 ml at 96°C"},
+            {"label": "Grind", "amount": "Coarse"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Steep", "body": "Steep 4:30 for maximum body.", "imagePath": "assets/images/steps/brew_french_press.jpg"},
+            {"order": 2, "title": "Plunge", "body": "Press slowly; decant all coffee to avoid over-extraction.", "imagePath": null}
+          ]
+        },
+        {
+          "id": 402,
+          "name": "Moka Pot",
+          "categorySlug": "moka",
+          "summary": "Concentrated, bittersweet cup.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "18 g fine"},
+            {"label": "Water", "amount": "Fill to valve"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Assemble", "body": "Fill basket level, do not tamp.", "imagePath": null},
+            {"order": 2, "title": "Heat", "body": "Medium-low heat until gurgling begins.", "imagePath": null},
+            {"order": 3, "title": "Stop", "body": "Remove from heat when flow turns blonde.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Turkish Blend",
+      "region": "Anatolia, Turkey",
+      "roastLevel": "Dark",
+      "description": "Very fine grind brewed in cezve with optional cardamom.",
+      "heroImagePath": "assets/images/coffees/turkish_blend.jpg",
+      "categorySlugs": ["regional"],
+      "flavorNotes": ["Cardamom", "Bold", "Syrupy"],
+      "methods": [
+        {
+          "id": 501,
+          "name": "Turkish Coffee",
+          "categorySlug": "regional",
+          "summary": "Unfiltered coffee with thick foam (kaymak).",
+          "ingredients": [
+            {"label": "Coffee", "amount": "7 g extra-fine"},
+            {"label": "Water", "amount": "60 ml"},
+            {"label": "Sugar", "amount": "To taste"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Combine", "body": "Mix coffee, water, and sugar in cezve off heat.", "imagePath": null},
+            {"order": 2, "title": "Heat slowly", "body": "Stir once, heat until foam rises—do not boil.", "imagePath": null},
+            {"order": 3, "title": "Serve", "body": "Pour including foam; let grounds settle before sipping.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Kenyan AA Nyeri",
+      "region": "Nyeri, Kenya",
+      "roastLevel": "Light",
+      "description": "SL28/SL34 lots with vibrant black-currant acidity.",
+      "heroImagePath": "assets/images/coffees/kenyan_aa.jpg",
+      "categorySlugs": ["filter", "immersion"],
+      "flavorNotes": ["Blackcurrant", "Tomato", "Brown sugar"],
+      "methods": [
+        {
+          "id": 601,
+          "name": "Chemex",
+          "categorySlug": "filter",
+          "summary": "Clean cup that showcases Kenyan acidity.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "30 g"},
+            {"label": "Water", "amount": "500 ml at 94°C"},
+            {"label": "Grind", "amount": "Medium-coarse"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Bloom", "body": "Pour 60 g, wait 45 seconds.", "imagePath": "assets/images/steps/brew_pour_over.jpg"},
+            {"order": 2, "title": "Pour", "body": "Continuous spiral pour to 500 g by 3:30.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Guatemalan Antigua",
+      "region": "Antigua, Guatemala",
+      "roastLevel": "Medium",
+      "description": "Volcanic soil character with chocolate and spice.",
+      "heroImagePath": "assets/images/coffees/guatemala_antigua.jpg",
+      "categorySlugs": ["filter", "espresso", "moka"],
+      "flavorNotes": ["Chocolate", "Nut", "Spice"],
+      "methods": [
+        {
+          "id": 701,
+          "name": "AeroPress",
+          "categorySlug": "immersion",
+          "summary": "Versatile recipe with balanced sweetness.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "15 g"},
+            {"label": "Water", "amount": "200 ml at 92°C"},
+            {"label": "Time", "amount": "1:45 total"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Invert", "body": "Add coffee and water, stir 10 seconds.", "imagePath": null},
+            {"order": 2, "title": "Press", "body": "Attach filter, flip, press over 30 seconds.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Costa Rican Tarrazú",
+      "region": "Tarrazú, Costa Rica",
+      "roastLevel": "Medium",
+      "description": "Honey-processed lots with citrus brightness.",
+      "heroImagePath": "assets/images/coffees/costa_rica_tarrazu.jpg",
+      "categorySlugs": ["filter", "immersion"],
+      "flavorNotes": ["Orange", "Honey", "Caramel"],
+      "methods": [
+        {
+          "id": 801,
+          "name": "V60 Pour Over",
+          "categorySlug": "filter",
+          "summary": "Highlights citrus and honey sweetness.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "15 g"},
+            {"label": "Water", "amount": "250 ml at 93°C"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Bloom", "body": "40 g water, 30 second bloom.", "imagePath": "assets/images/steps/brew_pour_over.jpg"},
+            {"order": 2, "title": "Finish", "body": "Pour to 250 g by 2:30.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Brazilian Santos",
+      "region": "Minas Gerais, Brazil",
+      "roastLevel": "Medium-Dark",
+      "description": "Nutty, low-acid profile ideal for milk drinks.",
+      "heroImagePath": "assets/images/coffees/brazil_santos.jpg",
+      "categorySlugs": ["espresso", "moka", "filter"],
+      "flavorNotes": ["Peanut", "Chocolate", "Low acid"],
+      "methods": [
+        {
+          "id": 901,
+          "name": "Espresso",
+          "categorySlug": "espresso",
+          "summary": "Classic nutty base for cappuccinos.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "18 g"},
+            {"label": "Yield", "amount": "40 g"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Extract", "body": "Pull 1:2 ratio shot in 25–30 seconds.", "imagePath": "assets/images/steps/brew_espresso.jpg"},
+            {"order": 2, "title": "Steam milk", "body": "Texture milk to microfoam for latte art.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Vietnamese Robusta",
+      "region": "Đắk Lắk, Vietnam",
+      "roastLevel": "Dark",
+      "description": "Robusta-forward blend for phin and iced milk coffee.",
+      "heroImagePath": "assets/images/coffees/vietnam_robusta.jpg",
+      "categorySlugs": ["regional", "filter"],
+      "flavorNotes": ["Bold", "Cocoa", "Bittersweet"],
+      "methods": [
+        {
+          "id": 1001,
+          "name": "Phin Filter",
+          "categorySlug": "regional",
+          "summary": "Slow drip over ice and sweetened condensed milk.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "20 g medium-fine"},
+            {"label": "Water", "amount": "40 ml hot + ice"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Bloom", "body": "Add 20 ml water, wait 30 seconds.", "imagePath": null},
+            {"order": 2, "title": "Drip", "body": "Fill chamber, cover, drip 4–5 minutes onto ice and milk.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Everyday Instant Coffee",
+      "region": "Global",
+      "roastLevel": "Medium",
+      "description": "Quick cup when time is short—still worth doing well.",
+      "heroImagePath": "assets/images/coffees/instant_coffee.jpg",
+      "categorySlugs": ["instant"],
+      "flavorNotes": ["Chocolate", "Nutty"],
+      "methods": [
+        {
+          "id": 1101,
+          "name": "Classic Instant",
+          "categorySlug": "instant",
+          "summary": "Dissolve in hot water without scorching.",
+          "ingredients": [
+            {"label": "Instant coffee", "amount": "2 g"},
+            {"label": "Water", "amount": "200 ml at 85°C"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Wet grounds", "body": "Stir instant with a splash of cool water first.", "imagePath": null},
+            {"order": 2, "title": "Top up", "body": "Add hot (not boiling) water and stir.", "imagePath": null}
+          ]
+        },
+        {
+          "id": 1102,
+          "name": "Iced Instant",
+          "categorySlug": "instant",
+          "summary": "Shake or stir over ice for a refreshing drink.",
+          "ingredients": [
+            {"label": "Instant coffee", "amount": "3 g"},
+            {"label": "Water", "amount": "30 ml cold"},
+            {"label": "Ice", "amount": "Fill glass"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Dissolve", "body": "Shake instant with cold water until frothy.", "imagePath": null},
+            {"order": 2, "title": "Serve", "body": "Pour over ice; add milk if desired.", "imagePath": null}
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Panama Geisha",
+      "region": "Boquete, Panama",
+      "roastLevel": "Light",
+      "description": "Celebrated auction lot with extraordinary florals and tea-like clarity.",
+      "heroImagePath": "assets/images/coffees/panama_geisha.jpg",
+      "categorySlugs": ["filter"],
+      "flavorNotes": ["Jasmine", "Bergamot", "Stone fruit"],
+      "methods": [
+        {
+          "id": 1201,
+          "name": "Origami Dripper",
+          "categorySlug": "filter",
+          "summary": "Gentle pours preserve delicate aromatics.",
+          "ingredients": [
+            {"label": "Coffee", "amount": "12 g"},
+            {"label": "Water", "amount": "200 ml at 92°C"},
+            {"label": "Grind", "amount": "Medium-fine"}
+          ],
+          "steps": [
+            {"order": 1, "title": "Bloom", "body": "30 g water, 40 second bloom.", "imagePath": "assets/images/steps/brew_pour_over.jpg"},
+            {"order": 2, "title": "Slow pours", "body": "Two gentle pours to 200 g, finish by 2:45.", "imagePath": null}
+          ]
+        }
+      ]
+    }
+  ]
 }
