@@ -1,0 +1,35 @@
+{
+    "name": "BrewCraft",
+    "short_name": "BrewCraft",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFF8F6",
+    "theme_color": "#5C3D2E",
+    "description": "Coffee guide — explore, brew, customize.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

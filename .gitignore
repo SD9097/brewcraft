@@ -1,0 +1,38 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+**/google-services.json
+**/GoogleService-Info.plist
+firebase_options.dart
+
+# Local user uploads (device-specific; synced via cloud in Phase 2)
+assets/user_uploads/
+
+# Generated
+*.g.dart
+*.freezed.dart
+*.drift.dart
+
+# Cursor / local
+.cursor/

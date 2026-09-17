@@ -1,0 +1,40 @@
+name: brewcraft
+description: Cross-platform coffee guide — explore regional coffees, brew methods, and personal recipes.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  go_router: ^14.8.1
+  drift: ^2.23.0
+  sqlite3_flutter_libs: ^0.5.28
+  path_provider: ^2.1.5
+  path: ^1.9.1
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
+  image_picker: ^1.1.2
+  uuid: ^4.5.1
+  intl: ^0.20.2
+  collection: ^1.19.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.14
+  drift_dev: ^2.23.0
+  riverpod_generator: ^2.6.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/seed/
+    - assets/images/coffees/
+    - assets/images/methods/
