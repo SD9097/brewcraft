@@ -5,6 +5,7 @@ import '../features/brew_category/presentation/brew_category_home_screen.dart';
 import '../features/coffee_detail/presentation/coffee_detail_screen.dart';
 import '../features/coffee_list/presentation/coffee_list_screen.dart';
 import '../features/my_recipes/presentation/my_recipes_screen.dart';
+import '../features/my_recipes/presentation/recipe_editor_screen.dart';
 import '../features/preparation/presentation/preparation_guide_screen.dart';
 
 final appRouter = GoRouter(
@@ -47,6 +48,19 @@ final appRouter = GoRouter(
       path: '/my-recipes',
       name: 'my-recipes',
       builder: (context, state) => const MyRecipesScreen(),
+    ),
+    GoRoute(
+      path: '/recipes/new',
+      name: 'recipe-new',
+      builder: (context, state) => const RecipeEditorScreen(),
+    ),
+    GoRoute(
+      path: '/recipes/:id/edit',
+      name: 'recipe-edit',
+      builder: (context, state) {
+        final id = int.parse(state.pathParameters['id']!);
+        return RecipeEditorScreen(recipeId: id);
+      },
     ),
   ],
   errorBuilder: (context, state) => Scaffold(

@@ -8,6 +8,12 @@ flutter create . --project-name brewcraft --org com.brewcraft --platforms=web,an
 Write-Host "==> Get dependencies..."
 flutter pub get
 
+Write-Host "==> Drift web assets (sqlite3.wasm + drift_worker.js)..."
+& "$PSScriptRoot\setup-drift-web.ps1"
+
+Write-Host "==> Code generation..."
+dart run build_runner build --delete-conflicting-outputs
+
 Write-Host "==> Optional: download Stitch design screenshots..."
 if (Test-Path "design\stitch\download-assets.ps1") {
     & "design\stitch\download-assets.ps1"

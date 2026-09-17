@@ -1,9 +1,10 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+
+import 'user_image_io.dart' if (dart.library.html) 'user_image_web.dart' as io;
 
 class UserImageService {
   UserImageService({ImagePicker? picker}) : _picker = picker ?? ImagePicker();
@@ -24,19 +25,20 @@ class UserImageService {
     );
     if (picked == null) return null;
 
-    final dir = await _uploadDir();
-    final ext = p.extension(picked.path).isEmpty ? '.jpg' : p.extension(picked.path);
-    final fileName = '${slot.name}_${entityId}_${_uuid.v4()}$ext';
-    final dest = File(p.join(dir.path, fileName));
-    await File(picked.path).copy(dest.path);
-    return dest.path;
-  }
+    if (kIsWeb) {
+      // Blob URLs work for the current session; persist path string for overrides.
+      return picked.path;
+    }
 
-  Future<Directory> _uploadDir() async {
+    final bytes = await picked.readAsBytes();
     final base = await getApplicationDocumentsDirectory();
-    final dir = Directory(p.join(base.path, 'user_uploads'));
-    if (!dir.existsSync()) await dir.create(recursive: true);
-    return dir;
+    final dirPath = p.join(base.path, 'user_uploads');
+    await io.ensureDir(dirPath);
+    final ext = p.extension(picked.name).isEmpty ? '.jpg' : p.extension(picked.name);
+    final fileName = '${slot.name}_${entityId}_${_uuid.v4()}$ext';
+    final dest = p.join(dirPath, fileName);
+    await io.writeBytes(dest, bytes);
+    return dest;
   }
 }
 
