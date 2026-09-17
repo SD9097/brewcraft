@@ -113,3 +113,16 @@ dart run build_runner build --delete-conflicting-outputs
 
 ### Why
 - Flutter web + `sqlite3.wasm` had a version mismatch (`xFileControl` import error). sql.js avoids that and loads the 12 seeded coffees reliably in Chrome.
+
+---
+
+## 2026-09-17 — Image overrides + recipe editor
+
+### What
+- Persist coffee hero photo overrides in `image_overrides` (shown on detail + list after restart).
+- Add user recipe tables + repository; fork from brew guide; create/edit/delete in recipe editor.
+- My Recipes lists saved recipes; routes `/recipes/new` and `/recipes/:id/edit`.
+- Make HybridImage / UserImageService web-safe (no raw `dart:io` on web).
+
+### Why
+- User asked to ship image overrides and recipe editing next after Drift schema.

@@ -50,7 +50,7 @@ class CoffeeDetailScreen extends ConsumerWidget {
                     right: 12,
                     bottom: 12,
                     child: FilledButton.icon(
-                      onPressed: () => _changePhoto(context),
+                      onPressed: () => _changePhoto(context, ref),
                       icon: const Icon(Icons.photo_camera_outlined, size: 18),
                       label: const Text('Change photo'),
                     ),
@@ -101,14 +101,24 @@ class CoffeeDetailScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _changePhoto(BuildContext context) async {
+  Future<void> _changePhoto(BuildContext context, WidgetRef ref) async {
     final path = await UserImageService().pickAndSave(
       slot: ImageSlot.coffeeHero,
       entityId: coffeeId,
     );
-    if (path != null && context.mounted) {
+    if (path == null) return;
+
+    final repo = await ref.read(coffeeRepositoryProvider.future);
+    await repo.setCoffeeHeroOverride(coffeeId: coffeeId, localPath: path);
+    ref.invalidate(coffeeByIdProvider(coffeeId));
+    final coffee = await ref.read(coffeeByIdProvider(coffeeId).future);
+    for (final slug in coffee?.categorySlugs ?? const <String>[]) {
+      ref.invalidate(coffeesForCategoryProvider(slug));
+    }
+
+    if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Photo saved locally.')),
+        const SnackBar(content: Text('Photo saved and will stick after restart.')),
       );
     }
   }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/models/coffee.dart';
+import '../../../core/models/recipe.dart';
 import '../../../core/widgets/adaptive_scaffold.dart';
 import '../../../core/widgets/hybrid_image.dart';
 import '../../../data/providers/database_providers.dart';
@@ -52,6 +54,12 @@ class PreparationGuideScreen extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Text(detail.method.summary!),
               ],
+              const SizedBox(height: 16),
+              FilledButton.tonalIcon(
+                onPressed: () => _forkRecipe(context, ref, coffeeName, detail),
+                icon: const Icon(Icons.edit_note),
+                label: const Text('Customize as my recipe'),
+              ),
               const SizedBox(height: 24),
               Text('Ingredients', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
@@ -109,5 +117,39 @@ class PreparationGuideScreen extends ConsumerWidget {
         );
       },
     );
+  }
+
+  Future<void> _forkRecipe(
+    BuildContext context,
+    WidgetRef ref,
+    String coffeeName,
+    BrewMethodDetail detail,
+  ) async {
+    final repo = await ref.read(recipeRepositoryProvider.future);
+    final id = await repo.saveRecipe(
+      RecipeSaveInput(
+        name: '$coffeeName · ${detail.method.name}',
+        coffeeId: coffeeId,
+        forkedFromMethodId: methodId,
+        categorySlug: detail.method.categorySlug,
+        notes: detail.method.summary,
+        ingredients: [
+          for (final i in detail.ingredients)
+            RecipeDraftIngredient(label: i.label, amount: i.amount),
+        ],
+        steps: [
+          for (final s in detail.steps)
+            RecipeDraftStep(
+              title: s.title,
+              body: s.body,
+              imagePath: s.imagePath,
+            ),
+        ],
+      ),
+    );
+    ref.invalidate(recipesProvider);
+    if (context.mounted) {
+      context.push('/recipes/$id/edit');
+    }
   }
 }

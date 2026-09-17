@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 
 import '../../core/models/coffee.dart' as models;
+import '../../core/services/user_image_service.dart';
 import '../local/app_database.dart';
 
 class CoffeeRepository {
@@ -90,6 +91,46 @@ class CoffeeRepository {
     );
   }
 
+  Future<void> setCoffeeHeroOverride({
+    required int coffeeId,
+    required String localPath,
+  }) async {
+    final existing = await (_db.select(_db.imageOverrides)
+          ..where(
+            (t) =>
+                t.slot.equals(ImageSlot.coffeeHero.name) &
+                t.entityType.equals('coffee') &
+                t.entityId.equals(coffeeId),
+          ))
+        .getSingleOrNull();
+
+    if (existing == null) {
+      await _db.into(_db.imageOverrides).insert(
+            ImageOverridesCompanion.insert(
+              slot: ImageSlot.coffeeHero.name,
+              entityType: 'coffee',
+              entityId: coffeeId,
+              localPath: localPath,
+            ),
+          );
+    } else {
+      await (_db.update(_db.imageOverrides)..where((t) => t.id.equals(existing.id)))
+          .write(ImageOverridesCompanion(localPath: Value(localPath)));
+    }
+  }
+
+  Future<String?> _heroOverride(int coffeeId) async {
+    final row = await (_db.select(_db.imageOverrides)
+          ..where(
+            (t) =>
+                t.slot.equals(ImageSlot.coffeeHero.name) &
+                t.entityType.equals('coffee') &
+                t.entityId.equals(coffeeId),
+          ))
+        .getSingleOrNull();
+    return row?.localPath;
+  }
+
   Future<models.CoffeeSummary> _toSummary(Coffee row) async {
     final notes = await (_db.select(_db.flavorNotes)
           ..where((t) => t.coffeeId.equals(row.id)))
@@ -100,13 +141,14 @@ class CoffeeRepository {
     final methods = await (_db.select(_db.brewMethods)
           ..where((t) => t.coffeeId.equals(row.id)))
         .get();
+    final override = await _heroOverride(row.id);
 
     return models.CoffeeSummary(
       id: row.id,
       name: row.name,
       region: row.region,
       roastLevel: row.roastLevel,
-      heroImagePath: row.heroImagePath,
+      heroImagePath: override ?? row.heroImagePath,
       flavorNotes: notes.map((n) => n.note).toList(),
       categorySlugs: categories.map((c) => c.categorySlug).toList(),
       methodIds: methods.map((m) => m.id).toList(),

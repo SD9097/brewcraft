@@ -61,6 +61,35 @@ class ImageOverrides extends Table {
   TextColumn get localPath => text()();
 }
 
+class UserRecipes extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  IntColumn get coffeeId => integer().nullable().references(Coffees, #id)();
+  IntColumn get forkedFromMethodId => integer().nullable()();
+  TextColumn get categorySlug => text().nullable()();
+  TextColumn get notes => text().nullable()();
+  TextColumn get coverImagePath => text().nullable()();
+  DateTimeColumn get createdAt => dateTime()();
+  DateTimeColumn get updatedAt => dateTime()();
+}
+
+class UserRecipeIngredients extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get recipeId => integer().references(UserRecipes, #id)();
+  TextColumn get label => text()();
+  TextColumn get amount => text()();
+  IntColumn get sortOrder => integer().withDefault(const Constant(0))();
+}
+
+class UserRecipeSteps extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get recipeId => integer().references(UserRecipes, #id)();
+  IntColumn get stepOrder => integer()();
+  TextColumn get title => text()();
+  TextColumn get body => text()();
+  TextColumn get imagePath => text().nullable()();
+}
+
 class AppMeta extends Table {
   TextColumn get key => text()();
   TextColumn get value => text()();

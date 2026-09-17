@@ -1,7 +1,8 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+
+import 'local_file_image.dart';
 
 class HybridImage extends StatelessWidget {
   const HybridImage({
@@ -39,6 +40,15 @@ class HybridImage extends StatelessWidget {
         errorBuilder: (_, __, ___) => _placeholder(context),
       );
     }
+    if (path!.startsWith('blob:')) {
+      return Image.network(
+        path!,
+        width: width,
+        height: height,
+        fit: fit,
+        errorBuilder: (_, __, ___) => _placeholder(context),
+      );
+    }
     if (path!.startsWith('http://') || path!.startsWith('https://')) {
       return CachedNetworkImage(
         imageUrl: path!,
@@ -49,17 +59,14 @@ class HybridImage extends StatelessWidget {
         errorWidget: (_, __, ___) => _placeholder(context),
       );
     }
-    final file = File(path!);
-    if (file.existsSync()) {
-      return Image.file(
-        file,
-        width: width,
-        height: height,
-        fit: fit,
-        errorBuilder: (_, __, ___) => _placeholder(context),
-      );
-    }
-    return _placeholder(context);
+    if (kIsWeb) return _placeholder(context);
+    return LocalFileImage(
+      path: path!,
+      width: width,
+      height: height,
+      fit: fit,
+      placeholder: _placeholder(context),
+    );
   }
 
   Widget _placeholder(BuildContext context) {
