@@ -8,6 +8,8 @@ class CoffeeSummary {
     required this.flavorNotes,
     required this.categorySlugs,
     required this.methodIds,
+    this.isFavorite = false,
+    this.description,
   });
 
   final int id;
@@ -18,6 +20,23 @@ class CoffeeSummary {
   final List<String> flavorNotes;
   final List<String> categorySlugs;
   final List<int> methodIds;
+  final bool isFavorite;
+  final String? description;
+
+  CoffeeSummary copyWith({bool? isFavorite}) {
+    return CoffeeSummary(
+      id: id,
+      name: name,
+      region: region,
+      roastLevel: roastLevel,
+      heroImagePath: heroImagePath,
+      flavorNotes: flavorNotes,
+      categorySlugs: categorySlugs,
+      methodIds: methodIds,
+      isFavorite: isFavorite ?? this.isFavorite,
+      description: description,
+    );
+  }
 }
 
 class BrewMethodSummary {

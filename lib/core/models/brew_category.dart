@@ -7,6 +7,7 @@ class BrewCategory {
     required this.subtitle,
     required this.icon,
     required this.color,
+    this.imagePath,
   });
 
   final String slug;
@@ -14,6 +15,7 @@ class BrewCategory {
   final String subtitle;
   final IconData icon;
   final Color color;
+  final String? imagePath;
 }
 
 const brewCategories = <BrewCategory>[
@@ -23,6 +25,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'V60, Chemex, Kalita',
     icon: Icons.water_drop_outlined,
     color: Color(0xFFC96E4B),
+    imagePath: 'assets/images/steps/brew_pour_over.jpg',
   ),
   BrewCategory(
     slug: 'immersion',
@@ -30,6 +33,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'French press, AeroPress, cold brew',
     icon: Icons.hourglass_bottom_outlined,
     color: Color(0xFF5C3D2E),
+    imagePath: 'assets/images/steps/brew_french_press.jpg',
   ),
   BrewCategory(
     slug: 'espresso',
@@ -37,6 +41,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'Espresso, latte, cappuccino',
     icon: Icons.coffee_outlined,
     color: Color(0xFF231710),
+    imagePath: 'assets/images/steps/brew_espresso.jpg',
   ),
   BrewCategory(
     slug: 'regional',
@@ -44,6 +49,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'South Indian filter, Turkish, phin',
     icon: Icons.public_outlined,
     color: Color(0xFF784B35),
+    imagePath: 'assets/images/coffees/turkish_blend.jpg',
   ),
   BrewCategory(
     slug: 'moka',
@@ -51,6 +57,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'Moka pot, percolator',
     icon: Icons.local_fire_department_outlined,
     color: Color(0xFF8F4E00),
+    imagePath: 'assets/images/coffees/sumatra_mandheling.jpg',
   ),
   BrewCategory(
     slug: 'instant',
@@ -58,6 +65,7 @@ const brewCategories = <BrewCategory>[
     subtitle: 'Classic, iced, whipped styles',
     icon: Icons.bolt_outlined,
     color: Color(0xFFE5A93B),
+    imagePath: 'assets/images/coffees/instant_coffee.jpg',
   ),
 ];
 

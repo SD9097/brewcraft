@@ -17,6 +17,7 @@ part 'app_database.g.dart';
     UserRecipes,
     UserRecipeIngredients,
     UserRecipeSteps,
+    Favorites,
     AppMeta,
   ],
 )
@@ -24,7 +25,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connectExecutor());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -34,6 +35,9 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(userRecipes);
             await m.createTable(userRecipeIngredients);
             await m.createTable(userRecipeSteps);
+          }
+          if (from < 3) {
+            await m.createTable(favorites);
           }
         },
       );

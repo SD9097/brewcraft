@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../utils/responsive.dart';
 
@@ -9,12 +10,14 @@ class AdaptiveScaffold extends StatelessWidget {
     required this.body,
     this.actions,
     this.leading,
+    this.selectedNavIndex = 0,
   });
 
   final String title;
   final Widget body;
   final List<Widget>? actions;
   final Widget? leading;
+  final int selectedNavIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +26,28 @@ class AdaptiveScaffold extends StatelessWidget {
         body: Row(
           children: [
             NavigationRail(
-              selectedIndex: 0,
+              selectedIndex: selectedNavIndex.clamp(0, 2),
               labelType: NavigationRailLabelType.all,
+              onDestinationSelected: (index) {
+                switch (index) {
+                  case 0:
+                    context.go('/');
+                  case 1:
+                    context.go('/favorites');
+                  case 2:
+                    context.go('/my-recipes');
+                }
+              },
               destinations: const [
                 NavigationRailDestination(
                   icon: Icon(Icons.home_outlined),
                   selectedIcon: Icon(Icons.home),
                   label: Text('Brew'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_outline),
+                  selectedIcon: Icon(Icons.favorite),
+                  label: Text('Saved'),
                 ),
                 NavigationRailDestination(
                   icon: Icon(Icons.menu_book_outlined),

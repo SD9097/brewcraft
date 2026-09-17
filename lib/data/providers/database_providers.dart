@@ -60,3 +60,11 @@ final recipeByIdProvider =
 final recipeRepositoryProvider = FutureProvider<RecipeRepository>((ref) async {
   return _recipeRepo(ref);
 });
+
+final favoriteCoffeesProvider = FutureProvider<List<CoffeeSummary>>((ref) async {
+  return (await _coffeeRepo(ref)).favoriteCoffees();
+});
+
+final isFavoriteProvider = FutureProvider.family<bool, int>((ref, coffeeId) async {
+  return (await _coffeeRepo(ref)).isFavorite(coffeeId);
+});

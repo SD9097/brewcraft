@@ -90,6 +90,14 @@ class UserRecipeSteps extends Table {
   TextColumn get imagePath => text().nullable()();
 }
 
+class Favorites extends Table {
+  IntColumn get coffeeId => integer().references(Coffees, #id)();
+  DateTimeColumn get createdAt => dateTime()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {coffeeId};
+}
+
 class AppMeta extends Table {
   TextColumn get key => text()();
   TextColumn get value => text()();

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/services/user_image_service.dart';
 import '../../../core/widgets/adaptive_scaffold.dart';
+import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/hybrid_image.dart';
 import '../../../data/providers/database_providers.dart';
 
@@ -22,11 +23,25 @@ class CoffeeDetailScreen extends ConsumerWidget {
         body: Center(child: CircularProgressIndicator()),
       ),
       error: (error, _) => Scaffold(
-        body: Center(child: Text('Could not load coffee: $error')),
+        body: EmptyState(
+          icon: Icons.error_outline,
+          title: 'Could not load coffee',
+          message: '$error',
+          actionLabel: 'Go back',
+          onAction: () => context.pop(),
+        ),
       ),
       data: (coffee) {
         if (coffee == null) {
-          return const Scaffold(body: Center(child: Text('Coffee not found')));
+          return Scaffold(
+            body: EmptyState(
+              icon: Icons.coffee_outlined,
+              title: 'Coffee not found',
+              message: 'This coffee may have been removed from the catalog.',
+              actionLabel: 'Go back',
+              onAction: () => context.pop(),
+            ),
+          );
         }
 
         return AdaptiveScaffold(
@@ -35,6 +50,18 @@ class CoffeeDetailScreen extends ConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () => context.pop(),
           ),
+          actions: [
+            IconButton(
+              tooltip: coffee.isFavorite ? 'Remove favorite' : 'Add favorite',
+              onPressed: () => _toggleFavorite(ref, coffee.isFavorite),
+              icon: Icon(
+                coffee.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: coffee.isFavorite
+                    ? Theme.of(context).colorScheme.secondary
+                    : null,
+              ),
+            ),
+          ],
           body: ListView(
             padding: const EdgeInsets.all(16),
             children: [
@@ -61,6 +88,15 @@ class CoffeeDetailScreen extends ConsumerWidget {
               Text(coffee.region),
               const SizedBox(height: 8),
               Text('${coffee.roastLevel} roast'),
+              if (coffee.description != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  coffee.description!,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                ),
+              ],
               const SizedBox(height: 16),
               Wrap(
                 spacing: 8,
@@ -99,6 +135,19 @@ class CoffeeDetailScreen extends ConsumerWidget {
         );
       },
     );
+  }
+
+  Future<void> _toggleFavorite(WidgetRef ref, bool currentlyFavorite) async {
+    final repo = await ref.read(coffeeRepositoryProvider.future);
+    await repo.setFavorite(coffeeId, !currentlyFavorite);
+    ref.invalidate(coffeeByIdProvider(coffeeId));
+    ref.invalidate(favoriteCoffeesProvider);
+    ref.invalidate(isFavoriteProvider(coffeeId));
+    for (final slug in (await ref.read(coffeeByIdProvider(coffeeId).future))
+            ?.categorySlugs ??
+        const <String>[]) {
+      ref.invalidate(coffeesForCategoryProvider(slug));
+    }
   }
 
   Future<void> _changePhoto(BuildContext context, WidgetRef ref) async {

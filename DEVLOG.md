@@ -126,3 +126,15 @@ dart run build_runner build --delete-conflicting-outputs
 
 ### Why
 - User asked to ship image overrides and recipe editing next after Drift schema.
+
+---
+
+## 2026-09-17 — UI polish + favorites (`feature/polish-favorites`)
+
+### What
+- Favorites table (schema v3) with toggle on coffee cards and detail; `/favorites` screen.
+- Home brew-category cards use photo backgrounds + gradient overlay.
+- Shared `EmptyState` for list/error empties; desktop nav rail includes Saved + Recipes.
+
+### Why
+- Next near-term product slice after core browse/recipe flows: save coffees and tighten visual polish.

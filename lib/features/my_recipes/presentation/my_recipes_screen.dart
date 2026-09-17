@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/widgets/adaptive_scaffold.dart';
+import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/hybrid_image.dart';
 import '../../../data/providers/database_providers.dart';
 
@@ -17,39 +18,29 @@ class MyRecipesScreen extends ConsumerWidget {
 
     return AdaptiveScaffold(
       title: 'My recipes',
+      selectedNavIndex: 2,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () => context.canPop() ? context.pop() : context.go('/'),
       ),
       body: recipesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(child: Text('Could not load recipes: $error')),
+        error: (error, _) => EmptyState(
+          icon: Icons.error_outline,
+          title: 'Could not load recipes',
+          message: '$error',
+          actionLabel: 'Retry',
+          onAction: () => ref.invalidate(recipesProvider),
+        ),
         data: (recipes) {
           if (recipes.isEmpty) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'No custom recipes yet',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Fork a brew guide with “Customize as my recipe”, or create one from scratch.',
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 16),
-                    FilledButton.icon(
-                      onPressed: () => context.push('/recipes/new'),
-                      icon: const Icon(Icons.add),
-                      label: const Text('New recipe'),
-                    ),
-                  ],
-                ),
-              ),
+            return EmptyState(
+              icon: Icons.menu_book_outlined,
+              title: 'No custom recipes yet',
+              message:
+                  'Fork a brew guide with “Customize as my recipe”, or create one from scratch.',
+              actionLabel: 'New recipe',
+              onAction: () => context.push('/recipes/new'),
             );
           }
 
